@@ -4,5 +4,5 @@ import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 @widgetbook.UseCase(name: 'Default', type: SayHello)
 Widget buildSayHelloUseCase(BuildContext context) {
-  return SayHello(name: 'Wafa');
+  return Center(child: SayHello(name: 'Wafa'));
 }
