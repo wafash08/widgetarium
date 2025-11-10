@@ -4,33 +4,27 @@ import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 @widgetbook.UseCase(name: 'Info', type: Alert)
 Widget buildAlertInfo(BuildContext context) {
-  return Center(
-    child: Alert(
-      title: 'Info Title',
-      message: 'This is an info message',
-      level: AlertLevel.info,
-    ),
+  return Alert(
+    title: 'Info Title',
+    message: 'This is an info message',
+    level: AlertLevel.info,
   );
 }
 
 @widgetbook.UseCase(name: 'Warning', type: Alert)
 Widget buildAlertWarning(BuildContext context) {
-  return Center(
-    child: Alert(
-      title: 'Warning Title',
-      message: 'This is an warning message',
-      level: AlertLevel.warning,
-    ),
+  return Alert(
+    title: 'Warning Title',
+    message: 'This is an warning message',
+    level: AlertLevel.warning,
   );
 }
 
 @widgetbook.UseCase(name: 'Error', type: Alert)
 Widget buildAlertError(BuildContext context) {
-  return Center(
-    child: Alert(
-      title: 'Error Title',
-      message: 'This is an error message',
-      level: AlertLevel.error,
-    ),
+  return Alert(
+    title: 'Error Title',
+    message: 'This is an error message',
+    level: AlertLevel.error,
   );
 }
