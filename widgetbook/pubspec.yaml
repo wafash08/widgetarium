@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  font_awesome_flutter: ^10.9.1
   widgetarium:
     path: ../
 
