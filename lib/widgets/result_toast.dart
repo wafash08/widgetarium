@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 enum ResultToastType { error, success }
 
@@ -63,9 +62,10 @@ class _ResultToastState extends State<ResultToast> {
   @override
   Widget build(BuildContext context) {
     final IconData icon =
-        _isError ? FontAwesomeIcons.exclamation : Icons.check_rounded;
+        _isError ? Icons.warning_amber_rounded : Icons.check_rounded;
 
-    final MaterialColor iconColor = _isError ? Colors.amber : Colors.green;
+    final Color iconColor = _isError ? Colors.amber.shade800 : Colors.green;
+    final Color iconBackgroundColor = _isError ? Colors.red : Colors.green;
 
     return Stack(
       children: [
@@ -77,21 +77,17 @@ class _ResultToastState extends State<ResultToast> {
             height: 70,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.amber.withAlpha(128),
+              color: Colors.amber.withAlpha(64),
             ),
           ),
         ),
         Positioned(
-          left: -60,
-          bottom: -60,
-          child: Container(
-            width: 320,
-            height: 320,
-            decoration: BoxDecoration(
-              color: iconColor.withAlpha(16),
-              shape: BoxShape.circle,
-            ),
-            child: Center(child: Icon(icon, size: 240, color: Colors.white)),
+          left: _isError ? -100 : -60,
+          top: 0,
+          child: Icon(
+            icon,
+            size: 320,
+            color: iconBackgroundColor.withAlpha(16),
           ),
         ),
         Column(
@@ -139,17 +135,7 @@ class _ResultToastState extends State<ResultToast> {
                 child: Column(
                   spacing: 12,
                   children: [
-                    Container(
-                      width: 48,
-                      height: 48,
-                      decoration: BoxDecoration(
-                        color: iconColor,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Center(
-                        child: Icon(icon, size: 32, color: Colors.white),
-                      ),
-                    ),
+                    Icon(icon, size: 48, color: iconColor),
                     Text(
                       widget.message,
                       style: const TextStyle(fontSize: 16),
@@ -193,6 +179,82 @@ class _ResultToastState extends State<ResultToast> {
           ],
         ),
       ],
+    );
+  }
+}
+
+Future<void> showResultToast(
+  BuildContext context, {
+  bool isMobile = false,
+  required String message,
+  Duration countdownDuration = const Duration(seconds: 3),
+  String countdownText = 'Popup menutup dalam',
+  String timeUnit = 'detik',
+  required ResultToastType toastType,
+}) async {
+  if (isMobile) {
+    return showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: Colors.transparent,
+      barrierColor: Colors.black54,
+      isDismissible: true,
+      builder: (context) {
+        return Container(
+          height: 320,
+          decoration: BoxDecoration(
+            color: const Color.fromARGB(255, 248, 248, 248),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
+            ),
+          ),
+          clipBehavior: Clip.hardEdge,
+          child: ResultToast(
+            isMobile: true,
+            message: message,
+            toastType: toastType,
+            countdownDuration: countdownDuration,
+            countdowntText: countdownText,
+            timeUnit: timeUnit,
+          ),
+        );
+      },
+    );
+  } else {
+    return showGeneralDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      transitionBuilder: (_, animation, __, child) {
+        return SlideTransition(
+          position: Tween(
+            begin: const Offset(0, -1),
+            end: const Offset(0, 0),
+          ).animate(animation),
+          child: child,
+        );
+      },
+      pageBuilder: (_, __, ___) {
+        return Dialog(
+          clipBehavior: Clip.hardEdge,
+          backgroundColor: Colors.white,
+          shadowColor: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: SizedBox(
+            height: 320,
+            width: 400,
+            child: ResultToast(
+              isMobile: false,
+              message: message,
+              toastType: toastType,
+              countdownDuration: countdownDuration,
+              countdowntText: countdownText,
+              timeUnit: timeUnit,
+            ),
+          ),
+        );
+      },
     );
   }
 }

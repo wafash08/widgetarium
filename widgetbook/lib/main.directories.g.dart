@@ -12,8 +12,14 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:widgetbook/widgetbook.dart' as _widgetbook;
 import 'package:widgetbook_workspace/alert.dart' as _widgetbook_workspace_alert;
+import 'package:widgetbook_workspace/blockseat/multi_step_passenger_form.dart'
+    as _widgetbook_workspace_blockseat_multi_step_passenger_form;
+import 'package:widgetbook_workspace/confirmation_dialog.dart'
+    as _widgetbook_workspace_confirmation_dialog;
 import 'package:widgetbook_workspace/copy_summary_hotel.dart'
     as _widgetbook_workspace_copy_summary_hotel;
+import 'package:widgetbook_workspace/how_to_pay.dart'
+    as _widgetbook_workspace_how_to_pay;
 import 'package:widgetbook_workspace/result_toast.dart'
     as _widgetbook_workspace_result_toast;
 import 'package:widgetbook_workspace/save_account_dialog.dart'
@@ -51,6 +57,23 @@ final directories = <_widgetbook.WidgetbookNode>[
         ],
       ),
       _widgetbook.WidgetbookComponent(
+        name: 'ConfirmationDialog',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Desktop',
+            builder:
+                _widgetbook_workspace_confirmation_dialog
+                    .buildCopyHotelSummaryDesktop,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Mobile',
+            builder:
+                _widgetbook_workspace_confirmation_dialog
+                    .buildCopyHotelSummaryMobile,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
         name: 'CopyHotelSummary',
         useCases: [
           _widgetbook.WidgetbookUseCase(
@@ -64,6 +87,15 @@ final directories = <_widgetbook.WidgetbookNode>[
             builder:
                 _widgetbook_workspace_copy_summary_hotel
                     .buildCopyHotelSummaryMobile,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'HowToPay',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Default',
+            builder: _widgetbook_workspace_how_to_pay.buildHowToPay,
           ),
         ],
       ),
@@ -156,6 +188,22 @@ final directories = <_widgetbook.WidgetbookNode>[
             name: 'Snackbar Content',
             builder:
                 _widgetbook_workspace_snackbar_content.buildSnackbarContent,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookFolder(
+        name: 'blockseat',
+        children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'MultiStepPassengerForm',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Multi step passenger form',
+                builder:
+                    _widgetbook_workspace_blockseat_multi_step_passenger_form
+                        .buildMultiStepPassengerForm,
+              ),
+            ],
           ),
         ],
       ),

@@ -16,7 +16,7 @@ class WidgetbookApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Widgetbook.material(
       directories: directories,
-      addons: [AlignmentAddon()],
+      addons: [ViewportAddon(Viewports.all), AlignmentAddon()],
     );
   }
 }

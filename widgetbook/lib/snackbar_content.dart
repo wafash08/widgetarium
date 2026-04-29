@@ -7,9 +7,6 @@ Widget buildSnackbarContent(BuildContext context) {
   final double width = MediaQuery.sizeOf(context).width;
   final double snackbarWidth = 480;
   final double marginLeft = width - snackbarWidth;
-  print('width: $width');
-  print('margin left: $marginLeft');
-  print('snackbar width: $snackbarWidth');
 
   return Scaffold(
     backgroundColor: Colors.white,
